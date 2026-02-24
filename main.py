@@ -27,6 +27,7 @@ def main():
                         state = "game"
                     elif state == "game":
 
+
                         
     if state == "game":
         screen.fill("#58A1F0")
