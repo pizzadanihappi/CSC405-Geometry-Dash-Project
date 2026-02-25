@@ -41,13 +41,3 @@ def main():
             draw_text(screen, "PRESS SPACE TO START", 60, WIDTH // 2, HEIGHT // 2)
         elif state == "game":
             pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
-
-            cube.update()
-            cube.display()
-
-        pygame.display.flip()
-        fps_clock.tick()
-
-
-if __name__ == "__main__":
-    main()
