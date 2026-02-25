@@ -3,6 +3,7 @@ import pygame
 import pygame.locals
 
 from cube import Cube
+from spike import Spike
 
 WIDTH = 1000
 HEIGHT = 600
