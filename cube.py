@@ -9,10 +9,11 @@ class Cube:
         self.x, self.y = x, y
         self.size = size
         self.ground = ground
+        self.color = "#FFDD40"
 
         self.vy = 0 # velocity
-        self.g = 0.01 #gravity
-        self.jump_vel = -2
+        self.g = 0.3 #gravity
+        self.jump_vel = -9
 
         if self.y + self.size >= self.ground:
             self.y = self.ground - self.size
@@ -33,8 +34,13 @@ class Cube:
             self.y = self.ground - self.size
             self.vy = 0
             self.on_ground = True
+    
+    def hitbox(self):
+        return pygame.Rect(self.x, self.y, self.size, self.size)
+    
+    def dead(self):
+        self.color = "#3C3E32"
                 
-
     def display(self) -> None:
 
-        pygame.draw.rect(self.surface, "#FFDD40", (self.x, self.y, self.size, self.size))
+        pygame.draw.rect(self.surface, self.color, (self.x, self.y, self.size, self.size))
