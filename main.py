@@ -20,6 +20,7 @@ def draw_text(screen, text, size, x, y):
     screen.blit(surface, rect)
 
 def main():
+    attempts = 1
     fps = 60
     fps_clock = pygame.time.Clock()
     pygame.init()
@@ -53,6 +54,7 @@ def main():
                         elif gamemode == "ufo":
                             ufo.jump()
         screen.fill("#00B3FF")
+        draw_text(screen, f"Attempt {attempts}", 40, 100, 50)
         pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
         if state == "start":
             draw_text(screen, "PRESS SPACE TO START", 60, WIDTH // 2, HEIGHT // 2)
@@ -81,17 +83,27 @@ def main():
 
         if state == "death":
             pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
-            cube.display()
-            spike.display(screen)
+            for spike in obstacles:
+                spike.display(screen)
+            for portal in portals:
+                portal.display()
+
+            icon = {"cube": cube, "ufo": ufo, "ship": ship}[gamemode]
+            icon.display()
 
             if death_time is not None:
                 if pygame.time.get_ticks() - death_time > 1000:
                     cube = Cube(screen, 150, GROUND - 40, 40, GROUND)
-                    spike = Spike(screen, WIDTH, GROUND, 40, 40, speed=5)
+                    ufo = Ufo(screen, 150, 300, 40, GROUND)
+                    ship = Ship(screen, 150, 300, 40, GROUND)
+
+                    obstacles, portals = build_level(screen, GROUND)
+
                     state = "game"
-                    death_time = None
                     gamemode = "cube"
-        
+                    death_time = None
+                    attempts += 1
+                
         pygame.display.flip()
         fps_clock.tick(fps)
         
