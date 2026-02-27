@@ -15,7 +15,15 @@ class Spike:
         self.x -= self.speed
 
     def hitbox(self):
-        return pygame.Rect(self.x, self.y - self.height, self.width, self.height)
+        margin_x = self.width * 0.15
+        margin_top = self.height * 0.20 
+        margin_bottom = self.height * 0.05 
+
+        return pygame.Rect(self.x + margin_x,
+            self.y - self.height + margin_top,
+            self.width - 2 * margin_x,
+            self.height - margin_top - margin_bottom
+        )
 
     def display(self, surface) -> None:
         pygame.draw.polygon(surface, (255, 0, 0), [

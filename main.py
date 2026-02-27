@@ -7,6 +7,7 @@ from spike import Spike
 from ufo import Ufo
 from ship import Ship
 from portal import Portal
+from level import build_level
 
 WIDTH = 1000
 HEIGHT = 600
@@ -24,9 +25,10 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
+    obstacles, portals = build_level(screen, GROUND)
     cube = Cube(screen, x = 150, y = GROUND - 40, size = 40, ground = GROUND)
-    ufo = Ufo(screen, x = 150, y = 300, size =40)
-    ship = Ship(screen, 150, 300, 40)
+    ufo = Ufo(screen, x = 150, y = 300, size = 40, ground = GROUND)
+    ship = Ship(screen, 150, 300, 40, ground = GROUND)
     spike = Spike(screen, WIDTH, GROUND, 40, 40, speed=5)
     portal = Portal(screen, WIDTH + 300, GROUND, mode = "ufo")
 
@@ -51,46 +53,31 @@ def main():
                         elif gamemode == "ufo":
                             ufo.jump()
         screen.fill("#00B3FF")
+        pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
         if state == "start":
             draw_text(screen, "PRESS SPACE TO START", 60, WIDTH // 2, HEIGHT // 2)
 
         elif state == "game":
-            pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
-            spike.update()
-            spike.display(screen)
-            portal.update()
-            portal.display()
-            if gamemode == "cube":
-                cube.update()
-                cube.display()
-            elif gamemode == "ufo":
-                ufo.update()
-                ufo.display()
+            for spike in obstacles:
+                spike.update()
+                spike.display(screen)
+            for portal in portals:
+                portal.update()
+                portal.display()
 
-        icon = {"cube": cube, "ufo": ufo, "ship": ship}[gamemode]
-        icon.update()
-        icon.display()
-        
-        if icon.hitbox().colliderect(portal.hitbox()):
-            gamemode = portal.mode
+            icon = {"cube": cube, "ufo": ufo, "ship": ship}[gamemode]
+            icon.update()
+            icon.display()
 
-            if gamemode == "cube":
-                if cube.hitbox().colliderect(spike.hitbox()):
+            for portal in portals:
+                if icon.hitbox().colliderect(portal.hitbox()):
+                    gamemode = portal.mode
+
+            for spike in obstacles:
+                if icon.hitbox().colliderect(spike.hitbox()):
                     state = "death"
                     death_time = pygame.time.get_ticks()
-                    cube.dead()
-
-            elif gamemode == "ufo":
-                if ufo.hitbox().colliderect(spike.hitbox()):
-                    state = "death"
-                    death_time = pygame.time.get_ticks()
-                    ufo.dead()
-            elif gamemode == "ship":
-                if ufo.hitbox().colliderect(spike.hitbox()):
-                    state = "death"
-                    death_time = pygame.time.get_ticks()
-                    ship.dead()
-            
+                    icon.dead()
 
         if state == "death":
             pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
