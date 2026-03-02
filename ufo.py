@@ -5,8 +5,7 @@ import pygame.locals
 class Ufo:
     def __init__(self, surface: pygame.Surface, x, y, size, ground) -> None:
         self.surface = surface
-        self.x = x
-        self.y = y
+        self.x, self.y = x, y
         self.size = size
         self.ground = ground
         self.color = "#AE2BFF"

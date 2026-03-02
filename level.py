@@ -3,15 +3,18 @@ import pygame
 import pygame.locals
 
 from spike import Spike
+from blocks import Blocks
 from portal import Portal
 
 def build_level(surface, ground, width=1000):
     obstacles = []
+    blocks = []
     portals = []
 
     # CUBE
     obstacles.append(Spike(surface, width + 300, ground, 40, 40, speed=5))
     obstacles.append(Spike(surface, width + 600, ground, 40, 40, speed=5))
+    blocks.append(Blocks(surface, 700, ground - 60, 120, 60))
     
     # UFO
     portals.append(Portal(surface, width + 900, ground, mode="ufo", width=30, height=120, speed=5))
@@ -29,4 +32,4 @@ def build_level(surface, ground, width=1000):
     # CUBE
     portals.append(Portal(surface, width + 2700, ground, mode="cube", width=30, height=120, speed=5))
     
-    return obstacles, portals
+    return obstacles, portals, blocks

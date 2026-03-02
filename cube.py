@@ -22,9 +22,9 @@ class Cube:
         else:
             self.on_ground = False
 
-    def jump(self) -> None:
-        if self.on_ground:
-            self.vy = self.jump_vel
+    def jump(self, on_surface = False) -> None:
+        if self.alive and (self.on_ground or on_surface):
+            self.vy = self.jump_vel  # whatever your jump value is
             self.on_ground = False
 
     def update(self) -> None:

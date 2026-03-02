@@ -1,10 +1,9 @@
 import pygame
 
 class Ship:
-    def __init__(self, surface: pygame.Surface, x, y, size, ground) -> None:
+    def __init__(self, surface: pygame.Surface, x: float, y: float, size: float, ground: float) -> None:
         self.surface = surface
-        self.x = x
-        self.y = float(y)
+        self.x, self.y = x, y
         self.size = size
         self.vy = 0.5
         self.g = 0.5

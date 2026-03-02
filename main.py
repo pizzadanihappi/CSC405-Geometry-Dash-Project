@@ -4,6 +4,7 @@ import pygame.locals
 
 from cube import Cube
 from spike import Spike
+from blocks import Blocks
 from ufo import Ufo
 from ship import Ship
 from portal import Portal
@@ -26,11 +27,11 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    obstacles, portals = build_level(screen, GROUND)
+    obstacles, portals, blocks = build_level(screen, GROUND)
     cube = Cube(screen, x = 150, y = GROUND - 40, size = 40, ground = GROUND)
     ufo = Ufo(screen, x = 150, y = 300, size = 40, ground = GROUND)
     ship = Ship(screen, 150, 300, 40, ground = GROUND)
-    spike = Spike(screen, WIDTH, GROUND, 40, 40, speed=5)
+    spike = Spike(screen, WIDTH, GROUND, 40, 40, speed = 5)
     portal = Portal(screen, WIDTH + 300, GROUND, mode = "ufo")
 
     death_time = None
@@ -39,6 +40,7 @@ def main():
     state = "start"
     gamemode = "cube"
     portal_cooldown = 0
+    on_surface = False
 
     while True:
         for event in pygame.event.get():
@@ -51,7 +53,7 @@ def main():
                         state = "game"
                     elif state == "game":
                         if gamemode == "cube":
-                            cube.jump()
+                            cube.jump(on_surface)
                         elif gamemode == "ufo":
                             ufo.jump()
         screen.fill("#00B3FF")
@@ -64,6 +66,9 @@ def main():
             for spike in obstacles:
                 spike.update()
                 spike.display(screen)
+            for block in blocks:
+                block.update()
+                block.display()
             for portal in portals:
                 portal.update()
                 portal.display()
@@ -102,6 +107,19 @@ def main():
                     state = "death"
                     death_time = pygame.time.get_ticks()
                     icon.dead()
+            for block in blocks:
+                if block.top_surface(icon.hitbox(), getattr(icon, "vy", 0)):
+                    icon.y = block.rect.top - icon.size
+                    icon.vy = 0 
+                    on_surface = True
+                    break  
+                else:
+                    on_surface = False
+            for block in blocks:
+                if block.side_hit(icon.hitbox(), getattr(icon, "vy", 0)):
+                    state = "death"
+                    death_time = pygame.time.get_ticks()
+                    icon.dead()
 
         if state == "death":
             pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
@@ -119,7 +137,7 @@ def main():
                     ufo = Ufo(screen, 150, 300, 40, GROUND)
                     ship = Ship(screen, 150, 300, 40, GROUND)
 
-                    obstacles, portals = build_level(screen, GROUND)
+                    obstacles, portals, blocks = build_level(screen, GROUND)
 
                     state = "game"
                     gamemode = "cube"
