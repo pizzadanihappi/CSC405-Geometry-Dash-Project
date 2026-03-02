@@ -38,6 +38,7 @@ def main():
     cube.update()
     state = "start"
     gamemode = "cube"
+    portal_cooldown = 0
 
     while True:
         for event in pygame.event.get():
@@ -66,6 +67,9 @@ def main():
             for portal in portals:
                 portal.update()
                 portal.display()
+            
+            if portal_cooldown > 0:
+                portal_cooldown -= 1
 
             icon = {"cube": cube, "ufo": ufo, "ship": ship}[gamemode]
             icon.update()
@@ -73,7 +77,25 @@ def main():
 
             for portal in portals:
                 if icon.hitbox().colliderect(portal.hitbox()):
-                    gamemode = portal.mode
+                    newmode = portal.mode
+
+                    if newmode == "cube":
+                        cube.x = icon.x
+                        cube.y = icon.y
+                        cube.vy = getattr(icon, "vy", 0)
+
+                    elif newmode == "ufo":
+                        ufo.x = icon.x
+                        ufo.y = icon.y
+                        ufo.vy = getattr(icon, "vy", 0)
+
+                    elif newmode == "ship":
+                        ship.x = icon.x
+                        ship.y = icon.y
+                        ship.vy = getattr(icon, "vy", 0)
+
+                    gamemode = newmode
+                    portal_cooldown = 20
 
             for spike in obstacles:
                 if icon.hitbox().colliderect(spike.hitbox()):
@@ -102,6 +124,7 @@ def main():
                     state = "game"
                     gamemode = "cube"
                     death_time = None
+                    portal_cooldown = 0
                     attempts += 1
                 
         pygame.display.flip()
