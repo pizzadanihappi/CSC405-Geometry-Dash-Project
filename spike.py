@@ -7,8 +7,7 @@ class Spike:
         self.surface = surface
         self.width = width
         self.height = height
-        self.x = x
-        self.y = y
+        self.x, self.y = x, y
         self.speed = speed
 
     def update(self) -> None:

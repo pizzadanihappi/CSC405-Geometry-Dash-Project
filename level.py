@@ -1,10 +1,12 @@
 import pygame
 from spike import Spike
+from block import Block
 from portal import Portal
 
 
 def build_level(surface, ground, width=1000):
     obstacles = []
+    blocks = []
     portals = []
 
     spacing = 250
