@@ -4,7 +4,7 @@ import pygame.locals
 
 from cube import Cube
 from spike import Spike
-from blocks import Blocks
+from block import Block
 from ufo import Ufo
 from ship import Ship
 from portal import Portal
@@ -125,6 +125,8 @@ def main():
             pygame.draw.rect(screen, "#004766", (0, GROUND, WIDTH, HEIGHT - GROUND))
             for spike in obstacles:
                 spike.display(screen)
+            for block in blocks:
+                block.display()
             for portal in portals:
                 portal.display()
 

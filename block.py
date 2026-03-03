@@ -2,7 +2,7 @@ import sys
 import pygame
 import pygame.locals
 
-class Blocks:
+class Block:
     def __init__(self, surface: pygame.Surface, x: float, y: float, width: float, height: float, speed = 5):
         self.surface = surface
         self.width = width
