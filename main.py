@@ -17,7 +17,7 @@ GROUND = 500
 def draw_text(screen, text, size, x, y):
     font = pygame.font.SysFont(None, size)
     surface = font.render(text, True, "white")
-    rect = surface.get_rect(center=(x, y))
+    rect = surface.get_rect(center = (x, y))
     screen.blit(surface, rect)
 
 def main():
@@ -31,7 +31,7 @@ def main():
     cube = Cube(screen, x = 150, y = GROUND - 40, size = 40, ground = GROUND)
     ufo = Ufo(screen, x = 150, y = 300, size = 40, ground = GROUND)
     ship = Ship(screen, 150, 300, 40, ground = GROUND)
-    spike = Spike(screen, WIDTH, GROUND, 40, 40, speed = 5)
+    spike = Spike(screen, WIDTH, GROUND, "up", 40, 40)
     portal = Portal(screen, WIDTH + 300, GROUND, mode = "ufo")
 
     death_time = None
@@ -103,10 +103,12 @@ def main():
                     portal_cooldown = 20
 
             for spike in obstacles:
-                if icon.hitbox().colliderect(spike.hitbox()):
+                offset = (int(spike.x - icon.x), int((spike.y - spike.height) - icon.y))
+                if icon.mask.overlap(spike.mask, offset):
                     state = "death"
                     death_time = pygame.time.get_ticks()
                     icon.dead()
+
             for block in blocks:
                 if block.top_surface(icon.hitbox(), getattr(icon, "vy", 0)):
                     icon.y = block.rect.top - icon.size

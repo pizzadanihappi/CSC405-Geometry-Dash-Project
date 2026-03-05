@@ -11,10 +11,14 @@ class Cube:
         self.ground = ground
         self.color = "#FFDD40"
         self.alive = True
+        
+        self.image = pygame.Surface((self.size, self.size), pygame.SRCALPHA)
+        pygame.draw.rect(self.image, self.color, (0, 0, self.size, self.size))
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.vy = 0 # velocity
         self.g = 0.3 #gravity
-        self.jump_vel = -9
+        self.jump_vel = -8
 
         if self.y + self.size >= self.ground:
             self.y = self.ground - self.size

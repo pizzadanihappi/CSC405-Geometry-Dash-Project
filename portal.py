@@ -1,7 +1,7 @@
 import pygame
 
 class Portal:
-    def __init__(self, surface: pygame.Surface, x, y, mode, width = 30, height = 120, speed = 5):
+    def __init__(self, surface: pygame.Surface, x, y, mode, width = 40, height = 130, speed = 6):
         self.surface = surface
         self.rect = pygame.Rect(x, y - height, width, height)
         self.speed = speed
