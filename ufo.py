@@ -8,7 +8,6 @@ class Ufo:
         self.x, self.y = x, y
         self.size = size
         self.ground = ground
-        self.color = "#AE2BFF"
 
         self.image = pygame.image.load("icons/ufo.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.size, self.size))

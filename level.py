@@ -151,4 +151,6 @@ def build_level(surface, ground, width = 1000):
     x += 40
     blocks.append(Block(surface, x, ground - 60, 300, 60))
 
+    all_x = []
+
     return obstacles, portals, blocks

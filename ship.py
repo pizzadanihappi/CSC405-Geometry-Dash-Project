@@ -9,7 +9,6 @@ class Ship:
         self.g = 0.5
         self.thrust = -0.8
         self.ground = ground
-        self.color = "#00DA74"
 
         self.image = pygame.image.load("icons/ship.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.size, self.size))

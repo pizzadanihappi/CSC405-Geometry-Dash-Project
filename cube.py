@@ -28,7 +28,7 @@ class Cube:
         else:
             self.on_ground = False
 
-    def jump(self, on_surface=False) -> None:
+    def jump(self, on_surface = False) -> None:
         if self.alive and (self.on_ground or on_surface):
             self.vy = self.jump_vel
             self.on_ground = False
@@ -60,8 +60,11 @@ class Cube:
     def hitbox(self):
         return pygame.Rect(self.x, self.y, self.size, self.size)
 
-    def dead(self) -> None:
+    def dead(self):
         self.color = "#3C3E32"
+        self.image.fill((0, 0, 0, 0))
+        pygame.draw.rect(self.image, self.color, (0, 0, self.size, self.size))
+        self.mask = pygame.mask.from_surface(self.image)
 
     def display(self) -> None:
         width = int(self.size * self.scale_x)

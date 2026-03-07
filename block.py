@@ -35,3 +35,4 @@ class Block:
             return False
         if (icon_rect.bottom <= self.rect.top + 10) and (icon_rect.bottom + vy >= self.rect.top):
             return True
+        return False

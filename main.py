@@ -11,7 +11,6 @@ from ufo import Ufo
 from ship import Ship
 from portal import Portal
 from level import build_level
-
 WIDTH = 1000
 HEIGHT = 600
 GROUND = 500
@@ -24,7 +23,7 @@ def draw_text(screen, text, size, x, y):
     screen.blit(surface, rect)
 
 
-def teleport_to_final_cube(obstacles, blocks, portals, distance=6000):
+def teleport_to_final_cube(obstacles, blocks, portals, distance = 6000):
     for spike in obstacles:
         spike.x -= distance
 
@@ -36,14 +35,13 @@ def teleport_to_final_cube(obstacles, blocks, portals, distance=6000):
 
 
 def reset_game(screen):
-    cube = Cube(screen, x=150, y=GROUND - 40, size=40, ground=GROUND)
-    ufo = Ufo(screen, x=150, y=300, size=40, ground=GROUND)
-    ship = Ship(screen, 150, 300, 40, ground=GROUND)
+    cube = Cube(screen, x = 150, y  = GROUND - 40, size = 40, ground = GROUND)
+    ufo = Ufo(screen, x = 150, y = 300, size = 40, ground = GROUND)
+    ship = Ship(screen, 150, y = 300, size = 40, ground = GROUND)
 
     obstacles, portals, blocks = build_level(screen, GROUND)
 
     return cube, ufo, ship, obstacles, portals, blocks
-
 
 def start_level_music():
     pygame.mixer.music.load(os.path.join("sounds", "level_music.mp3"))
