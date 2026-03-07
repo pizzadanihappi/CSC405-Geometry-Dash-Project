@@ -68,4 +68,4 @@ def build_level(surface, ground, width=1000):
 
     obstacles.append(Spike(surface, x, ground, 40, 40))
 
-    return obstacles, portals
+    return obstacles, portals, blocks
