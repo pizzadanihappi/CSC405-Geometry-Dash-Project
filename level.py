@@ -116,7 +116,7 @@ def build_level(surface, ground, width = 1000):
         obstacles.append(Spike(surface, x, (ground - 130 - (40 * i)), "left"))
     x += 40
 
-    portals.append(Portal(surface, x, ground, mode="cube"))
+    portals.append(Portal(surface, x, ground, mode = "cube"))
     blocks.append(Block(surface, x, ground - 600, 40, 470))
     x += 220
 
