@@ -10,9 +10,13 @@ class Ufo:
         self.ground = ground
         self.color = "#AE2BFF"
 
+        self.image = pygame.image.load("icons/ufo.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.size, self.size))
+        self.mask = pygame.mask.from_surface(self.image)
+
         self.vy = 0
         self.g = 0.3
-        self.jump_vel = -9
+        self.jump_vel = -8
 
     def jump(self) -> None:
         self.vy = self.jump_vel
@@ -32,8 +36,8 @@ class Ufo:
             self.y = self.ground - self.size
             self.vy = 0
 
-    def display(self) -> None:
-        pygame.draw.rect(self.surface, self.color, (int(self.x), int(self.y), self.size, self.size))
+    def display(self):
+        self.surface.blit(self.image, (int(self.x), int(self.y)))
 
     def dead(self) -> None:
         self.color = "#3C3E32"
