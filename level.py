@@ -4,7 +4,7 @@ from block import Block
 from portal import Portal
 
 
-def build_level(surface, ground, width=1000):
+def build_level(surface, ground, width = 1000):
     obstacles = []
     blocks = []
     portals = []
