@@ -150,6 +150,12 @@ def main():
                 portal.update()
                 portal.display()
 
+                if hasattr(portal, "description"):
+                    font = pygame.font.SysFont(None, 25)
+                    text_surf = font.render(portal.description, True, "white")
+                    text_rect = text_surf.get_rect(midleft = (portal.rect.right + 10, portal.rect.centery))
+                    game_surface.blit(text_surf, text_rect)
+
             obstacles = [spike for spike in obstacles if spike.x + spike.width > 0]
             blocks = [block for block in blocks if block.rect.right > 0]
             portals = [portal for portal in portals if portal.rect.right > 0]

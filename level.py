@@ -34,6 +34,7 @@ def build_level(surface, ground, width = 1000):
     x += 350
 
     portals.append(Portal(surface, x, ground, mode = "ufo"))
+    portals[-1].description = "Press SPACE to boost in the air!"
     blocks.append(Block(surface, x, ground - 600, 40, 470))
     x += 350
 
@@ -72,9 +73,10 @@ def build_level(surface, ground, width = 1000):
     x += 40
 
     portals.append(Portal(surface, x, ground - 40, mode = "ship"))
+    portals[-1].description = "Hold SPACE to fly up!"
     blocks.append(Block(surface, x, ground - 600, 40, 430))
     blocks.append(Block(surface, x, ground - 40, 40, 40))
-    x += 250
+    x += 450
 
     obstacles.append(Spike(surface, x, ground - 50, "up"))
     blocks.append(Block(surface, x, ground - 50, 40, 50))
@@ -117,6 +119,7 @@ def build_level(surface, ground, width = 1000):
     x += 40
 
     portals.append(Portal(surface, x, ground, mode = "cube"))
+    portals[-1].description = "Back to normal!"
     blocks.append(Block(surface, x, ground - 600, 40, 470))
     x += 220
 
