@@ -139,7 +139,7 @@ def build_level(surface, ground, width = 1000):
 
     obstacles.append(Spike(surface, x, ground, "up"))
 
-    x += 300
+    x += 400
 
     blocks.append(Block(surface, x, ground - 80, 40, 80))
     x += 40
