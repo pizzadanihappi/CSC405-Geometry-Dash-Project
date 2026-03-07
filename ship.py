@@ -11,12 +11,8 @@ class Ship:
         self.ground = ground
         self.color = "#00DA74"
 
-        self.image = pygame.Surface((self.size, self.size), pygame.SRCALPHA)
-        pygame.draw.polygon(self.image, self.color, [
-            (0, self.size), 
-            (self.size, self.size / 2), 
-            (0, 0)
-        ])
+        self.image = pygame.image.load("icons/ship.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.size, self.size))
         self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
@@ -41,7 +37,7 @@ class Ship:
             self.vy = 0
 
     def display(self):
-        pygame.draw.rect(self.surface, self.color, (self.x, self.y, self.size, self.size))
+        self.surface.blit(self.image, (self.x, self.y))
 
     def hitbox(self):
         return pygame.Rect(self.x, self.y, self.size, self.size)

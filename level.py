@@ -28,11 +28,9 @@ def build_level(surface, ground, width = 1000):
     x += 410
 
     blocks.append(Block(surface, x, ground - 50, 290, 50))
-
     x += 250
 
     obstacles.append(Spike(surface, x, ground - 50, "up"))
-
     x += 350
 
     portals.append(Portal(surface, x, ground, mode = "ufo"))
@@ -41,7 +39,6 @@ def build_level(surface, ground, width = 1000):
 
     for i in range(24):
         obstacles.append(Spike(surface, x + (40 * i), ground, "up"))
-
     x += 320
 
     obstacles.append(Spike(surface, x, ground - 150, "up"))
@@ -52,7 +49,6 @@ def build_level(surface, ground, width = 1000):
     blocks.append(Block(surface, x, ground - 250, 40, 250))
     obstacles.append(Spike(surface, x, ground - 400, "down"))
     blocks.append(Block(surface, x, ground - 600, 40, 160))
-
     x += 200
 
     obstacles.append(Spike(surface, x, ground - 200, "up"))
@@ -67,20 +63,17 @@ def build_level(surface, ground, width = 1000):
         x += 40
 
     blocks.append(Block(surface, x, ground - 400, 100, 400))
-
     x += 410
 
     for i in range(15):
         obstacles.append(Spike(surface, x, (ground - 200 - (40 * i)), "left"))
     
     obstacles.append(Spike(surface, x, (ground), "left"))
-
     x += 40
 
     portals.append(Portal(surface, x, ground - 40, mode = "ship"))
     blocks.append(Block(surface, x, ground - 600, 40, 430))
     blocks.append(Block(surface, x, ground - 40, 40, 40))
-
     x += 250
 
     obstacles.append(Spike(surface, x, ground - 50, "up"))
@@ -112,7 +105,6 @@ def build_level(surface, ground, width = 1000):
     obstacles.append(Spike(surface, x, ground - 300, "up"))
     x += 200
     obstacles.append(Spike(surface, x, ground - 260, "right"))
-
     x += 40
 
     for i in range(8):
@@ -124,26 +116,39 @@ def build_level(surface, ground, width = 1000):
         obstacles.append(Spike(surface, x, (ground - 130 - (40 * i)), "left"))
     x += 40
 
-    portals.append(Portal(surface, x, ground, mode = "cube"))
+    portals.append(Portal(surface, x, ground, mode="cube"))
     blocks.append(Block(surface, x, ground - 600, 40, 470))
-    x += 250
+    x += 220
 
     obstacles.append(Spike(surface, x, ground, "up"))
     obstacles.append(Spike(surface, x + 40, ground, "up"))
-    x += 150
+    x += 180
 
     obstacles.append(Spike(surface, x, ground - 100, "down"))
     blocks.append(Block(surface, x, ground - 600, 40, 460))
-
-    x += 150
+    x += 140
 
     obstacles.append(Spike(surface, x, ground, "up"))
-
     x += 400
 
     blocks.append(Block(surface, x, ground - 80, 40, 80))
     x += 40
-    blocks.append(Block(surface, x, ground - 80, 400, 40))
+    blocks.append(Block(surface, x, ground - 80, 260, 40))
 
+    obstacles.append(Spike(surface, x + 80, ground - 80, "up"))
+    obstacles.append(Spike(surface, x + 120, ground - 80, "up"))
+    obstacles.append(Spike(surface, x + 160, ground - 80, "up"))
+    x += 300
+
+    obstacles.append(Spike(surface, x, ground, "up"))
+    x += 220
+
+    obstacles.append(Spike(surface, x, ground, "up"))
+    obstacles.append(Spike(surface, x + 40, ground, "up"))
+    x += 320
+
+    blocks.append(Block(surface, x, ground - 60, 40, 60))
+    x += 40
+    blocks.append(Block(surface, x, ground - 60, 300, 60))
 
     return obstacles, portals, blocks
